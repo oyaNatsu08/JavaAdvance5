@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<VBox alignment="TOP_CENTER" prefHeight="467.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.javaadvance5.userController">
+    <Label text="ユーザー管理システム" textFill="#0040ff">
+        <font>
+            <Font size="20.0" />
+        </font>
+    </Label>
+
+    <HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" >
+        <Label fx:id="Error" textFill="red" >
+            <padding>
+                <Insets right="20" />
+            </padding>
+        </Label>
+        <Button text="企業管理" textFill="blue" onMouseClicked="#companyList" />
+        <padding>
+            <Insets top="20" />
+        </padding>
+    </HBox>
+
+    <HBox alignment="CENTER">
+        <GridPane hgap="10.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" vgap="10.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1">
+
+            <columnConstraints>
+            </columnConstraints>
+
+            <children>
+                <Text style="-fx-font-size: 15px;" text="ユーザー追加" GridPane.rowIndex="1" />
+                <Text text="所属企業" GridPane.rowIndex="2" />
+                <ComboBox fx:id="addCompany" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                <Text text="名前" GridPane.rowIndex="3" />
+                <TextField fx:id="addName" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                <Text text="スコア" GridPane.rowIndex="4" />
+                <TextField fx:id="addScore" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                <Button onAction="#addButtonClick" text="追加" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+            </children>
+            <padding>
+                <Insets bottom="20" left="20" right="20" top="20" />
+            </padding>
+          <rowConstraints>
+             <RowConstraints />
+             <RowConstraints />
+             <RowConstraints />
+             <RowConstraints />
+             <RowConstraints />
+            <RowConstraints />
+          </rowConstraints>
+        </GridPane>
+
+        <GridPane hgap="10.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" vgap="10.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1">
+
+            <columnConstraints>
+            </columnConstraints>
+
+            <children>
+                <Text style="-fx-font-size: 15px;" text="ユーザー編集" GridPane.rowIndex="1" />
+                <Text text="所属企業" GridPane.rowIndex="2" />
+                <ComboBox fx:id="editCompany" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                <Text text="名前" GridPane.rowIndex="3" />
+                <TextField fx:id="editName" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                <Text text="スコア" GridPane.rowIndex="4" />
+                <TextField fx:id="editScore" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                <Button onAction="#deleteButtonClick" text="削除" GridPane.columnIndex="0" GridPane.rowIndex="5" />
+                <Button onAction="#editButtonClick" text="編集" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+            </children>
+            <padding>
+                <Insets bottom="20" left="20" right="20" top="20" />
+            </padding>
+            <rowConstraints>
+                <RowConstraints />
+                <RowConstraints />
+                <RowConstraints />
+                <RowConstraints />
+                <RowConstraints />
+            </rowConstraints>
+        </GridPane>
+    </HBox>
+
+    <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="0" minWidth="-Infinity">
+        <HBox>
+            <Text text="検索ボックス" >
+                <font>
+                    <Font size="20" />
+                </font>
+            </Text>
+            <Region HBox.hgrow="ALWAYS" />
+            <Button text="検索" onMouseClicked="#searchClick" />
+        </HBox>
+        <TextField fx:id="search">
+            <VBox.margin>
+                <Insets bottom="10" />
+            </VBox.margin>
+        </TextField>
+        <TableView fx:id="table" onMouseClicked="#onListClick">
+            <columns>
+                <TableColumn fx:id="idColumn" prefWidth="75.0" text="id" />
+                <TableColumn fx:id="companyColumn" prefWidth="75.0" text="所属企業" />
+                <TableColumn fx:id="nameColumn" prefWidth="75.0" text="名前" />
+                <TableColumn fx:id="scoreColumn" prefWidth="75.0" text="スコア" />
+            </columns>
+        </TableView>
+    </VBox>
+</VBox>
