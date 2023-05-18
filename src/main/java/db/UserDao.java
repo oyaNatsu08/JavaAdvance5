@@ -13,6 +13,52 @@ public class UserDao {
         this.con = con;
     }
 
+    //レコードの合計数
+    public int count() {
+        final var sql = "SELECT COUNT(*) FROM users";
+
+        try (PreparedStatement stmt = this.con.prepareStatement(sql)) {
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                return rs.getInt(1);
+            } else {
+                return 0;
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+    }
+
+    //ユーザー一覧を50件受け取る
+    public List<User> findListAny(int id) {
+        final var sql = "SELECT u.id, u.name AS username, c.name AS company_name, " +
+                "score FROM users AS u INNER JOIN companies AS c ON company_id = c.id " +
+                "ORDER BY id LIMIT 50 OFFSET ?";
+
+        var list = new ArrayList<User>();
+
+        try (PreparedStatement stmt = this.con.prepareStatement(sql)) {
+            stmt.setInt(1, id);
+
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                var user = new User(rs.getInt("id"), rs.getString("company_name"),
+                        rs.getString("username"), rs.getInt("score"));
+                list.add(user);
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        return list;
+
+    }
+
     //ユーザー一覧を受け取る
     public List<User> findListAll() {
         final var sql = "SELECT u.id, u.name AS username, c.name AS company_name," +

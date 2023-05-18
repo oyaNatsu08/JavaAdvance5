@@ -97,6 +97,14 @@
                 <Insets bottom="10" />
             </VBox.margin>
         </TextField>
+        <HBox>
+            <Button text="前ページ" onMouseClicked="#backRecord" />
+            <Region HBox.hgrow="ALWAYS" />
+            <Button text="次ページ" onMouseClicked="#nextRecord" />
+            <padding>
+                <Insets top="10" bottom="10" />
+            </padding>
+        </HBox>
         <TableView fx:id="table" onMouseClicked="#onListClick">
             <columns>
                 <TableColumn fx:id="idColumn" prefWidth="75.0" text="id" />

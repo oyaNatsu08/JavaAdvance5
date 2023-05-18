@@ -45,7 +45,14 @@ public class userController {
     @FXML
     private TextField search;
 
+    //クリックしたレコードのID
     int clickId;
+
+    //レコードのカレントID
+    int currentId = 1;
+
+    //テーブルのレコード数
+    int count;
 
     //ユーザーリスト
     ObservableList<User> userList;
@@ -55,7 +62,10 @@ public class userController {
 
         var userService= new UserService();
 
-        var findUser = userService.findListAll();
+        //var findUser = userService.findListAll();
+        var findUser = userService.findListAny(currentId);
+
+        count = userService.count();
 
         userList = FXCollections.observableArrayList();
 
@@ -86,7 +96,7 @@ public class userController {
     public void addButtonClick() {
 
         try {
-            var userService= new UserService();
+            var userService = new UserService();
 
             String companyName = this.addCompany.getValue();
             //companyNameから企業IDを割り出す
@@ -103,9 +113,12 @@ public class userController {
             userService.addUser(addName, companyId, addScore);
 
             userList = FXCollections.observableArrayList();
-            var findUser = userService.findListAll();
+            //var findUser = userService.findListAll();
+            var findUser = userService.findListAny(currentId);
             //findUserの中身を全てuserListに追加
             userList.addAll(findUser);
+            //レコード件数をプラス１
+            count++;
 
             table.setItems(userList);
             Error.setText("");
@@ -148,9 +161,12 @@ public class userController {
             userService.deleteUser(clickId);
 
             userList = FXCollections.observableArrayList();
-            var findUser = userService.findListAll();
+            //var findUser = userService.findListAll();
+            var findUser = userService.findListAny(currentId);
             //findUserの中身を全てuserListに追加
             userList.addAll(findUser);
+            //レコード件数をマイナス１
+            count -= 1;
 
             table.setItems(userList);
 
@@ -181,7 +197,8 @@ public class userController {
             userService.updateUser(editName, companyId, editScore, clickId);
 
             userList = FXCollections.observableArrayList();
-            var findUser = userService.findListAll();
+            //var findUser = userService.findListAll();
+            var findUser = userService.findListAny(currentId);
             //findUserの中身を全てuserListに追加
             userList.addAll(findUser);
 
@@ -234,6 +251,45 @@ public class userController {
         stage.setTitle("ユーザーアプリケーション");
         stage.setScene(scene);
         stage.show();
+    }
+
+    @FXML
+    public void backRecord() {
+        var userService= new UserService();
+
+        currentId -= 50;
+
+        //currentIdを0以下にならないために
+        if (currentId < 1) {
+            currentId = 1;
+        }
+        var findUser = userService.findListAny(currentId);
+
+        userList = FXCollections.observableArrayList();
+        //findUserの中身を全てuserListに追加
+        userList.addAll(findUser);
+        table.setItems(userList);
+
+    }
+
+    @FXML
+    public void nextRecord() {
+        var userService= new UserService();
+
+        currentId += 50;
+
+        if (currentId > count) {
+            currentId -= 50;
+            return;
+        }
+
+        var findUser = userService.findListAny(currentId);
+
+        userList = FXCollections.observableArrayList();
+        //findUserの中身を全てuserListに追加
+        userList.addAll(findUser);
+        table.setItems(userList);
+
     }
 
 }

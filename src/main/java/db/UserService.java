@@ -16,6 +16,22 @@ public class UserService {
         this.dao = new UserDao(con);
     }
 
+    //レコード件数を受け取る
+    public int count() {
+        var userDao = dao;
+
+        return userDao.count();
+
+    }
+
+    //ユーザ一覧を50件受け取る
+    public List<User> findListAny(int id) {
+        var userDao = dao;
+
+        return userDao.findListAny(id);
+
+    }
+
     //ユーザー一覧を受け取る
     public List<User> findListAll() {
         var userDao = dao;
