@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<VBox alignment="TOP_CENTER" prefHeight="467.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.javaadvance5.userController">
+<VBox alignment="TOP_CENTER" prefHeight="467.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.javaadvance5.UserController">
     <Label text="ユーザー管理システム" textFill="#0040ff">
         <font>
             <Font size="20.0" />
@@ -99,6 +99,8 @@
         </TextField>
         <HBox>
             <Button text="前ページ" onMouseClicked="#backRecord" />
+            <Region minWidth="20" />
+            <Button text="更新" onMouseClicked="#reloadClick" />
             <Region HBox.hgrow="ALWAYS" />
             <Button text="次ページ" onMouseClicked="#nextRecord" />
             <padding>

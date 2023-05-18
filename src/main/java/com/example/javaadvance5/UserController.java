@@ -13,7 +13,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.sql.SQLException;
 
-public class userController {
+public class UserController {
     @FXML
     private TableView<User> table;
     @FXML
@@ -289,6 +289,39 @@ public class userController {
         //findUserの中身を全てuserListに追加
         userList.addAll(findUser);
         table.setItems(userList);
+
+    }
+
+    @FXML
+    public void reloadClick() {
+        var userService= new UserService();
+
+        //var findUser = userService.findListAll();
+        var findUser = userService.findListAny(currentId);
+
+        count = userService.count();
+
+        userList = FXCollections.observableArrayList();
+
+        //findUserの中身を全てuserListに追加
+        userList.addAll(findUser);
+
+        idColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
+        companyColumn.setCellValueFactory(new PropertyValueFactory<>("company"));
+        nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
+        scoreColumn.setCellValueFactory(new PropertyValueFactory<>("score"));
+
+        table.setItems(userList);
+
+
+        //追加処理の初期設定
+        ObservableList<String> items = FXCollections.observableArrayList();
+        var findCompany = userService.findCompanyAll();
+        for (User.Company company : findCompany) {
+            items.add(company.getName());
+        }
+        addCompany.setItems(items);
+        editCompany.setItems(items);
 
     }
 
